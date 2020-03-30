@@ -34,6 +34,11 @@ public class ItemRepository {
 		return item;
 	};
 	
+	/**
+	 * 商品情報を全件取得する.
+	 * 
+	 * @return 全部のItem情報が入ったリスト
+	 */
 	public List<Item> findAll() {
 		String sql = "SELECT id, name, condition, category, brand, price, shipping, description FROM items ORDER BY id";
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
