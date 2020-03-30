@@ -14,8 +14,10 @@ public class Item {
 	private String name;
 	/** ??? */
 	private Integer condition;
-	/** 「/」区切りのカテゴリー */
+	/** 小のid */
 	private Integer category;
+	/** 「/」区切りのカテゴリーネーム */
+	private String categoryName;	
 	/** ブランド */
 	private String brand;
 	/** 価格 */
@@ -49,6 +51,12 @@ public class Item {
 	public void setCategory(Integer category) {
 		this.category = category;
 	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 	public String getBrand() {
 		return brand;
 	}
@@ -75,7 +83,8 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", condition=" + condition + ", category=" + category + ", brand="
-				+ brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description + "]";
+		return "Item [id=" + id + ", name=" + name + ", condition=" + condition + ", category=" + category
+				+ ", categoryName=" + categoryName + ", brand=" + brand + ", price=" + price + ", shipping=" + shipping
+				+ ", description=" + description + "]";
 	}
 }
