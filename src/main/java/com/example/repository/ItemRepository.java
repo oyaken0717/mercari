@@ -23,15 +23,15 @@ public class ItemRepository {
 	
 	public static final RowMapper<Item> ITEM_ROW_MAPPER = (rs,i) -> {
 		Item item = new Item();
-		item.setId(rs.getInt("i.id"));
-		item.setName(rs.getString("i.name"));
-		item.setCondition(rs.getInt("i.condition"));
-		item.setCategory(rs.getInt("i.category"));
-		item.setCategoryName(rs.getString("c.name_all"));
-		item.setBrand(rs.getString("i.brand"));
-		item.setPrice(rs.getDouble("i.price"));
-		item.setShipping(rs.getInt("i.shipping"));
-		item.setDescription(rs.getString("i.description"));
+		item.setId(rs.getInt("i_id"));
+		item.setName(rs.getString("i_name"));
+		item.setCondition(rs.getInt("i_condition"));
+		item.setCategory(rs.getInt("i_category"));
+		item.setCategoryName(rs.getString("c_name_all"));
+		item.setBrand(rs.getString("i_brand"));
+		item.setPrice(rs.getDouble("i_price"));
+		item.setShipping(rs.getInt("i_shipping"));
+		item.setDescription(rs.getString("i_description"));
 		return item;
 	};
 	
