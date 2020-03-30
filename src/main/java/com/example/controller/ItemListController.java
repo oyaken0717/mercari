@@ -47,7 +47,7 @@ public class ItemListController {
 	public String toShowItem(Model model, Integer id) {
 		Item item = itemService.load(id);
 		model.addAttribute("item",item);
-		return "list";
+		return "detail";
 	}
 	
 }
