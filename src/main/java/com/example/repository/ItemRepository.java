@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -59,5 +60,24 @@ public class ItemRepository {
 //		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 //		return itemList;
 //	}
+
+	/**
+	 * idで指定された商品情報を取得する.
+	 * 
+	 * @return Item情報が入ったリスト
+	 */
+	public Item load(Integer id) {
+		StringBuilder sql=new StringBuilder();
+		sql.append("SELECT");
+		sql.append(" i.id AS i_id, i.name AS i_name, i.condition AS i_condition, i.category AS i_category,");
+		sql.append(" i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description,");
+		sql.append(" c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all ");
+		sql.append("FROM items i JOIN category c ");
+		sql.append("ON i.category =  c.id ");
+		sql.append("WHERE i.id = :id");
+		MapSqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Item item = template.queryForObject(sql.toString(), param, ITEM_ROW_MAPPER);
+		return item;
+	}
 
 }

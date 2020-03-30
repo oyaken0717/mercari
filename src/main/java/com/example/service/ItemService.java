@@ -31,4 +31,15 @@ public class ItemService {
 		List<Item> itemList = itemRepository.findAll();
 		return itemList;
 	} 
+
+	/**
+	 * idから検索された商品情報を返す.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Item load(Integer id) {
+		Item item = itemRepository.load(id);
+		return item;
+	} 
 }

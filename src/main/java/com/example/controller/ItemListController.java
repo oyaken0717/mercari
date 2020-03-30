@@ -23,11 +23,12 @@ public class ItemListController {
 	@Autowired
 	private ItemService itemService;
 	
+
 	/**
 	 * 商品一覧画面
 	 * 
-	 * @param model list化された全商品の情報が入る
-	 * @return 商品一覧画面
+	 * @param model List化された全商品の情報が入る
+	 * @return　商品一覧画面
 	 */
 	@RequestMapping("")
 	public String toItemList(Model model) {
@@ -35,4 +36,18 @@ public class ItemListController {
 		model.addAttribute("itemList",itemList);
 		return "list";
 	}
+	
+	/**
+	 * 商品詳細画面
+	 * 
+	 * @param model idで指定された商品の情報が入る
+	 * @return 商品詳細画面
+	 */
+	@RequestMapping("to-show-item")
+	public String toShowItem(Model model, Integer id) {
+		Item item = itemService.load(id);
+		model.addAttribute("item",item);
+		return "list";
+	}
+	
 }
