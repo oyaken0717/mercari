@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
+import com.example.form.ItemForm;
 import com.example.service.ItemService;
 
 /**
@@ -50,8 +51,17 @@ public class ItemListController {
 		return "detail";
 	}
 
-//	@RequestMapping("to-show-item")
-//	public String saveItem(Model model) {
+	@RequestMapping("to-edit-item")
+	public String toEditItem(Model model,Integer id) {
+		Item item = itemService.load(id);
+		model.addAttribute("item",item);
+		return "edit";
+	}
+	
+//	@RequestMapping("save-item")
+//	public String saveItem(Model model,ItemForm from) {
+//		
+//		
 //		Item item = itemService.save();
 //		model.addAttribute("item",item);
 //		return "detail";
