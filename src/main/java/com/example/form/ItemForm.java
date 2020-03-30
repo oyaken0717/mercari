@@ -33,8 +33,8 @@ public class ItemForm {
 	public Integer getIntCategory() {
 		return Integer.parseInt(category);
 	}
-	public Integer getIntPrice() {
-		return Integer.parseInt(price);
+	public Double getDoublePrice() {
+		return Double.parseDouble(price);
 	}
 	public Integer getIntShipping() {
 		return Integer.parseInt(shipping);
