@@ -41,7 +41,7 @@ public class ItemRepository {
 	 * @return 全部のItem情報が入ったリスト
 	 */
 	public List<Item> findAll() {
-		String sql = "SELECT i.id, i.name, i.condition, i.category, i.brand, i.price, i.shipping, i.description, c.id, c.parent, c.name, c.name_all FROM items i JOIN category c ON i.category =  c.id ORDER BY i.id LIMIT 20";
+		String sql = "SELECT i.id AS i_id, i.name AS i_name, i.condition AS i_condition, i.category AS i_category, i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description, c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all FROM items i JOIN category c ON i.category =  c.id ORDER BY i.id LIMIT 20";
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
