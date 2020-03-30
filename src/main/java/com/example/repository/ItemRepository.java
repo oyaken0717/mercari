@@ -79,5 +79,24 @@ public class ItemRepository {
 		Item item = template.queryForObject(sql.toString(), param, ITEM_ROW_MAPPER);
 		return item;
 	}
+	
+//    public Employee save(Employee employee) {
+//        //■BeanPropertySqlParameterSource()
+//        //■①引数のオブジェクトのプロパティ/変数を
+//        SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
+//        
+//        if (employee.getId() == null) {
+//                //■INSERTかUPDATEは情報量が多い>Domainを使う。> それ以外 > formから直接引数に渡してOK(ドメインは冗長のため)
+//                String insertSql = "INSERT INTO employees (name,age,gender,development_id) VALUES (:name,:age,:gender,:developmentId)";
+//                //■②①とsql内の:◯◯と合致した物を交換する。
+//                //■③sql内の:◯◯とDomainの変数名は統一しないといけない。
+//                template.update(insertSql,param);
+//        }else {
+//                String updateSql = "UPDATE employees SET name=:name,age=:age,gender=:gender,development_id=:developmentId WHERE id = :id";
+//                template.update(updateSql, param);                        
+//        }
+//        return employee;
+//}
+
 
 }

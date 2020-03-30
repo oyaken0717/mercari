@@ -49,5 +49,12 @@ public class ItemListController {
 		model.addAttribute("item",item);
 		return "detail";
 	}
+
+//	@RequestMapping("to-show-item")
+//	public String saveItem(Model model) {
+//		Item item = itemService.save();
+//		model.addAttribute("item",item);
+//		return "detail";
+//	}
 	
 }
