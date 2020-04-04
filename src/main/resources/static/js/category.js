@@ -1,7 +1,7 @@
 $(function() {
 		//■ parent > childの流れ
 		$('#inputParentId').on("change", function() {
-                var hostUrl = 'http://localhost:8080/item_search/check_parent';
+                var hostUrl = 'http://localhost:8080/category_search/check_parent';
                 var inputParentId = $("#inputParentId").val();
                 $.ajax({
                         url : hostUrl,
@@ -27,7 +27,7 @@ $(function() {
         
       //■ child > grandChildの流れ
         $('#inputChildId').on("change", function() {
-            var hostUrl = 'http://localhost:8080/item_search/check_child';
+            var hostUrl = 'http://localhost:8080/category_search/check_child';
             var inputChildId = $("#inputChildId").val();
             var inputChildName = $("#inputChildName").val();
             $.ajax({

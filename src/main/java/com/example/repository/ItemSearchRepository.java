@@ -115,7 +115,6 @@ public class ItemSearchRepository {
 				.addValue("name_all", nameAll + "%")
 				.addValue("brand", "%" + brand + "%");
 		List<Item> itemList = template.query(sql.toString(), param, ITEM_ROW_MAPPER2);
-		System.out.println(itemList);
 		if (itemList.size() == 0) {
 			return null;
 		}

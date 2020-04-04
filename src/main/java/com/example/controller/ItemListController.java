@@ -69,7 +69,9 @@ public class ItemListController {
 	@RequestMapping("/to-edit-item")
 	public String toEditItem(Model model,Integer id) {
 		Item item = itemService.load(id);
+		List<Category> parentList = categorySearchService.findAllParent();
 		model.addAttribute("item",item);
+		model.addAttribute("parentList",parentList);
 		return "edit";
 	}
 	

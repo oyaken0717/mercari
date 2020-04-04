@@ -17,7 +17,7 @@ import com.example.service.CategorySearchService;
  *
  */
 @RestController
-@RequestMapping("/item_search")
+@RequestMapping("/category_search")
 public class CategorySearchContoroller {
 	
 	@Autowired
