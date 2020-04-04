@@ -28,7 +28,10 @@ public class ItemForm {
 
 //■ getInt系 -------------------------------
 	public Integer getIntId() {
-		return Integer.parseInt(id);
+		if (id!=null) {
+			return Integer.parseInt(id);			
+		}
+		return null;
 	}
 	public Double getDoublePrice() {
 		return Double.parseDouble(price);

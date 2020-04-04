@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -40,66 +40,55 @@
     </div>
   </nav>
 
-  <!-- details -->
+<!--■ details -->
   <div id="input-main" class="container">
     <a type="button" class="btn btn-default" href="./list.html"><i class="fa fa-reply"></i> back</a>
     <h2>Add</h2>
 
-    <!-- add form -->
-    <form action="#" method="POST" class="form-horizontal">
-      <!-- name -->
+<!--■ form -->
+    <form th:action="@{/save-item}" method="POST" class="form-horizontal">
       <div class="form-group">
         <label for="inputName" class="col-sm-2 control-label">name</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="inputName"/>
+<!--■ name -->        
+          <input type="text" name="name" class="form-control" id="inputName"/>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
-      <!-- price -->
       <div class="form-group">
         <label for="price" class="col-sm-2 control-label">price</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="price"/>
+<!--■ price -->
+          <input type="text" name="price" class="form-control" id="price"/>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
-      <!-- category -->
+<!--■ category -->
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label">category</label>
         <div class="col-sm-8">
-          <select class="form-control">
-            <option>-- parentCategory --</option>
-            <option>parentCategory1</option>
-            <option>parentCategory2</option>
-            <option>parentCategory3</option>
-            <option>parentCategory4</option>
-            <option>parentCategory5</option>
+<!--■ 大 -->
+          <select name="parentId" id="inputParentId" class="form-control">
+            <option th:value=null>-- parentCategory --</option>
+            <option th:each="parent:${parentList}" th:value="${parent.id}" th:text="${parent.name}">parentCategory1</option>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
-          <select class="form-control">
+<!--■ 中 -->
+          <select name="childId" id="inputChildId" class="form-control">
             <option>-- childCategory --</option>
-            <option>childCategory1</option>
-            <option>childCategory2</option>
-            <option>childCategory3</option>
-            <option>childCategory4</option>
-            <option>childCategory5</option>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
-          <select class="form-control">
-            <option>-- grandChild --</option>
-            <option>grandChild1</option>
-            <option>grandChild2</option>
-            <option>grandChild3</option>
-            <option>grandChild4</option>
-            <option>grandChild5</option>
+<!--■ 小 -->
+          <select name="category" id="inputGrandChildId" class="form-control">
+            <option th:value=null>-- grandChild --</option>
           </select>
         </div>
       </div>
@@ -109,19 +98,19 @@
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
-      <!-- brand -->
       <div class="form-group">
         <label for="brand" class="col-sm-2 control-label">brand</label>
         <div class="col-sm-8">
-          <input type="text" id="brand" class="form-control" name="brand"/>
+<!--■ brand -->
+          <input name="brand" type="text" id="brand" class="form-control"/>
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
-      <!-- condition -->
       <div class="form-group">
         <label for="condition" class="col-sm-2 control-label">condition</label>
         <div class="col-sm-8">
           <label for="condition1" class="radio-inline">
+<!--■ condition -->
             <input type="radio" name="condition" id="condition1" value="1"/> 1
           </label>
           <label for="condition2" class="radio-inline">
@@ -138,7 +127,7 @@
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
-      <!-- description -->
+<!--■ description -->
       <div class="form-group">
         <label for="description" class="col-sm-2 control-label">description</label>
         <div class="col-sm-8">
@@ -146,7 +135,7 @@
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
-      <!-- submit button -->
+<!--■ submit button -->
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" class="btn btn-default">Submit</button>
@@ -154,5 +143,9 @@
       </div>
     </form>
   </div>
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script th:src="@{/js/category.js}"></script>
+  
 </body>
 </html>

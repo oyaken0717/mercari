@@ -12,20 +12,23 @@ public class Item {
 	private Integer id;
 	/** 商品名 */
 	private String name;
-	/** ??? */
-	private Integer condition;
-	/** 小のid */
-	private Integer category;
-	/** 「/」区切りのカテゴリーネーム */
-	private String categoryName;	
-	/** ブランド */
-	private String brand;
 	/** 価格 */
 	private double price;
-	/** 配送? */
-	private Integer shipping;
+	/** 小のid */
+	private Integer category;
+
+	/** 「/」区切りのカテゴリーネーム */
+	private String categoryName;	
+
+	/** ブランド */
+	private String brand;
+	/** ??? */
+	private Integer condition;
 	/** 商品説明 */
 	private String description;
+
+	/** 配送? */
+	private Integer shipping;
 	
 	public Integer getId() {
 		return id;

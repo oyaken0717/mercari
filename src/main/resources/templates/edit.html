@@ -45,7 +45,7 @@
     <a type="button" class="btn btn-default" href="./detail.html"><i class="fa fa-reply"></i> back</a>
     <h2>Edit</h2>
 
-<!--■ edit form -->
+<!--■ form -->
     <form th:action="@{/save-item}" method="POST" class="form-horizontal">
     	<input type="hidden" name="id" th:value="${item.id}">
 <!--■ name -->
@@ -83,7 +83,7 @@
           <div class="col-sm-8">
 <!--■ 中 -->
             <select name="childId" id="inputChildId" class="form-control">
-              <option>- childCategory -</option>
+              <option th:value=null>- childCategory -</option>
             </select>
           </div>
         </div>

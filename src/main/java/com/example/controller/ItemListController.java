@@ -47,6 +47,19 @@ public class ItemListController {
 	}
 	
 	/**
+	 * 商品登録画面へ
+	 * 
+	 * @param model 大中小カテゴリーの情報が入ったリストが入る
+	 * @return 商品登録画面
+	 */
+	@RequestMapping("/to-add-item")
+	public String toAddItem(Model model) {
+		List<Category> parentList = categorySearchService.findAllParent();
+		model.addAttribute("parentList",parentList);
+		return "add";
+	}
+	
+	/**
 	 * 商品詳細画面
 	 * 
 	 * @param model idで指定された商品の情報が入る
@@ -84,17 +97,23 @@ public class ItemListController {
 	 */
 	@RequestMapping("/save-item")
 	public String saveItem(ItemForm form,Model model,RedirectAttributes redirectAttributes) {
-		Item item = itemService.load(form.getIntId());		
-
+		Item item = new Item();
+		if (form.getIntId()!=null) {
+			item = itemService.load(form.getIntId());					
+		}
+		
 		BeanUtils.copyProperties(form, item);
 		item.setId(form.getIntId());
         item.setPrice(form.getDoublePrice());
         item.setCategory(form.getIntCategory());
         item.setCondition(form.getIntCondition());
 
-		itemService.save(item);		
-		redirectAttributes.addAttribute("id", form.getIntId());
+		itemService.save(item);
 		
-		return "redirect:/to-show-item";
+		if (form.getIntId()!=null) {
+			redirectAttributes.addAttribute("id", form.getIntId());
+			return "redirect:/to-show-item";
+		}
+		return "redirect:/";
 	}
 }
