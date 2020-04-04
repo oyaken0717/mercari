@@ -1,5 +1,11 @@
 package com.example.form;
 
+/**
+ * 商品登録や編集画面で入力された情報を格納するドメイン.
+ * 
+ * @author oyamadakenji
+ *
+ */
 public class ItemForm {
 
 	//■Integer型 ■1.id,■2.condition,■3.category,■4.price,■5.shipping
@@ -21,8 +27,6 @@ public class ItemForm {
 	private String shipping;
 	/** 商品説明 */
 	private String description;
-
-//■Integer型 ■1.id,■2.condition,■3.category,■4.price,■5.shipping
 
 	public Integer getIntId() {
 		return Integer.parseInt(id);

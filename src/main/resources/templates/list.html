@@ -20,29 +20,11 @@
 <!--■ body -->	
 	<body>
 <!--■ ヘッダー -->
-	  <!-- navbar -->
-	  <nav class="navbar navbar-inverse">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="./list.html">Rakus Items</a>
-	    </div>
-	    <div id="navbar" class="collapse navbar-collapse">
-	      <div>
-	        <ul class="nav navbar-nav navbar-right">
-	          <li><a id="logout" href="./login.html">Logout <i class="fa fa-power-off"></i></a></li>
-	        </ul>
-	        <p class="navbar-text navbar-right">
-	          <span id="loginName">user: userName</span>
-	        </p>
-	      </div>
-	    </div>
-	  </nav>
-<!--■ ヘッダー -->
-【LIMIT 20】
+
+ 	<span th:include="fragment-part::frag_header"></span>
+  
+ <!--■ ヘッダー -->
+【LIMIT 20】(商品一覧画像、検索表示)
 	  <div id="main" class="container-fluid">
 	    <!-- addItem link -->
 	    <div id="addItemButton">
@@ -51,44 +33,35 @@
 	
 <!--■ 検索フォーム -->
 	    <div id="forms">
-	      <form action="" class="form-inline" role="form">
+			<form th:action="@{/item_search/find-by-key-words}" method="post" class="form-inline" role="form">
 	        <div class="form-group">
-	          <input type="input" class="form-control" id="name" placeholder="item name"/>
+<!--■ 検索商品名 -->
+	          <input name="name" type="text" class="form-control" id="name" placeholder="item name"/>
 	        </div>
 	        <div class="form-group"><i class="fa fa-plus"></i></div>
 	        <div class="form-group">
-	          <select class="form-control">
-	            <option>- parentCategory -</option>
-	            <option>parentCategory1</option>
-	            <option>parentCategory2</option>
-	            <option>parentCategory3</option>
-	            <option>parentCategory4</option>
-	            <option>parentCategory5</option>
+<!--■ 大 -->
+			  <select name="parentId" id="inputParentId" class="form-control">
+	            <option th:value=null>- parentCategory -</option>
+	            <option th:each="parent:${parentList}" th:value="${parent.id}" th:text="${parent.name}">- parentCategory -</option>
 	          </select>
-	          <select class="form-control">
-	            <option>- childCategory -</option>
-	            <option>childCategory1</option>
-	            <option>childCategory2</option>
-	            <option>childCategory3</option>
-	            <option>childCategory4</option>
-	            <option>childCategory5</option>
+<!--■ 中 -->
+			  <select name="childId" id="inputChildId" class="form-control">
+                <option th:value=null>- childCategory -</option>
 	          </select>
-	          <select class="form-control">
-	            <option>- grandChild -</option>
-	            <option>grandChild1</option>
-	            <option>grandChild2</option>
-	            <option>grandChild3</option>
-	            <option>grandChild4</option>
-	            <option>grandChild5</option>
+<!--■ 小 -->
+	          <select name="grandChildId" id="inputGrandChildId" class="form-control">
+	            <option th:value=null>- grandChild -</option>
 	          </select>
 	        </div>
 	        <div class="form-group"><i class="fa fa-plus"></i></div>
 	        <div class="form-group">
-	          <input type="text" class="form-control" placeholder="brand"/>
+<!--■ ブランド -->
+	          <input name="brand" type="text" class="form-control" placeholder="brand"/>
 	        </div>
 	        <div class="form-group"></div>
 	        <button type="submit" class="btn btn-default"><i class="fa fa-angle-double-right"></i> search</button>
-	      </form>
+			</form>
 	    </div>
 	
 <!--■ pagination -->
@@ -153,5 +126,9 @@
 	      </div>
 	    </div>
 	  </div>
+	  
+	  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	  <script th:src="@{/js/category.js}"></script>
+	  
 	</body>
 </html>

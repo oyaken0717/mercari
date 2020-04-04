@@ -41,5 +41,9 @@ public class ItemService {
 	public Item load(Integer id) {
 		Item item = itemRepository.load(id);
 		return item;
+	}
+	
+	public void save(Item item) {
+		itemRepository.save(item);
 	} 
 }

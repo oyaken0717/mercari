@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!--■ フラグメント名(埋め込む方) -->
+	<span th:fragment="frag_header">
+		  <!-- navbar -->
+	  <nav class="navbar navbar-inverse">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="./list.html">Rakus Items</a>
+	    </div>
+	    <div id="navbar" class="collapse navbar-collapse">
+	      <div>
+	        <ul class="nav navbar-nav navbar-right">
+	          <li><a id="logout" href="./login.html">Logout <i class="fa fa-power-off"></i></a></li>
+	        </ul>
+	        <p class="navbar-text navbar-right">
+	          <span id="loginName">user: userName</span>
+	        </p>
+	      </div>
+	    </div>
+	  </nav>
+	
+	
+	
+	
+	</span>
+	
+	
+	<span th:fragment="frag_ad">
+	ここは別ファイルに指定した広告枠の内容です。<br>
+	</span>
+	<span th:fragment="frag_footer">
+	ここは別ファイルに指定したフッタの内容です。<br>
+	</span>
+</body>
+</html>
