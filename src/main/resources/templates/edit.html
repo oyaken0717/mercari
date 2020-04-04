@@ -40,7 +40,7 @@
     </div>
   </nav>
 
- <!--■ details -->
+<!--■ details -->
   <div id="input-main" class="container">
     <a type="button" class="btn btn-default" href="./detail.html"><i class="fa fa-reply"></i> back</a>
     <h2>Edit</h2>
@@ -62,14 +62,17 @@
             <input type="text" name="price" th:value="${item.price}" class="form-control" id="price"/>
           </div>
         </div>
+<!--■ 現在のcategory -->
+		<div>
+			<span>現在のcategory</span>
+			<span th:text="${item.categoryName}"></span>			
+		</div>
 <!--■ category -->
-<!-- <input type="hidden" name="category" th:value="${item.category}"> -->
-<!-- <input type="hidden" name="categoryName" th:value="${item.categoryName}"> -->
         <div class="form-group">
           <label for="category" class="col-sm-2 control-label">category</label>
           <div class="col-sm-8">
 <!--■ 大 -->
-            <select id="inputParentId" class="form-control">
+            <select name="parentId" id="inputParentId" class="form-control">
               <option th:value=null>- parentCategory -</option>
               <option th:each="parent:${parentList}" th:value="${parent.id}" th:text="${parent.name}">parentCategory1</option>
             </select>
@@ -79,7 +82,7 @@
           <label for="category" class="col-sm-2 control-label"></label>
           <div class="col-sm-8">
 <!--■ 中 -->
-            <select id="inputChildId" class="form-control">
+            <select name="childId" id="inputChildId" class="form-control">
               <option>- childCategory -</option>
             </select>
           </div>
@@ -88,7 +91,7 @@
           <label for="category" class="col-sm-2 control-label"></label>
           <div class="col-sm-8">
 <!--■ 小 -->
-            <select id="inputGrandChildId" class="form-control">
+            <select name="category" id="inputGrandChildId" class="form-control">
               <option th:value=null>- grandChild -</option>
             </select>
           </div>
@@ -100,6 +103,11 @@
             <input type="text" name="brand" th:value="${item.brand}" id="brand" class="form-control"/>
           </div>
         </div>
+<!--■ 現在のcondition -->
+		<div>
+			<span>現在のcondition</span>
+			<span th:text="${item.condition}"></span>			
+		</div>
 <!--■ condition -->
         <div class="form-group">
           <label for="condition" class="col-sm-2 control-label">condition</label>

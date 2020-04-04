@@ -1,7 +1,7 @@
 package com.example.form;
 
 /**
- * 商品登録や編集画面で入力された情報を格納するドメイン.
+ * 商品登録画面と編集画面で入力された情報を格納するドメイン.
  * 
  * @author oyamadakenji
  *
@@ -9,39 +9,35 @@ package com.example.form;
 public class ItemForm {
 
 	//■Integer型 ■1.id,■2.condition,■3.category,■4.price,■5.shipping
-	/** ID */
+	/** 商品ID(hidden) */
 	private String id;
 	/** 商品名 */
 	private String name;
-	/** ??? */
-	private String condition;
-	/** 小のid */
-	private String category;
-	/** 「/」区切りのカテゴリーネーム */
-	private String categoryName;	
-	/** ブランド */
-	private String brand;
 	/** 価格 */
 	private String price;
-	/** 配送? */
-	private String shipping;
-	/** 商品説明 */
-	private String description;
 
+	/** 小のid(category_id) */
+	private String category;
+	
+	/** ブランド */
+	private String brand;
+	/** コンディション */
+	private String condition;
+	/** 商品説明 */
+	private String description;	
+
+//■ getInt系 -------------------------------
 	public Integer getIntId() {
 		return Integer.parseInt(id);
-	}
-	public Integer getIntCondition() {
-		return Integer.parseInt(condition);
-	}
-	public Integer getIntCategory() {
-		return Integer.parseInt(category);
 	}
 	public Double getDoublePrice() {
 		return Double.parseDouble(price);
 	}
-	public Integer getIntShipping() {
-		return Integer.parseInt(shipping);
+	public Integer getIntCategory() {
+		return Integer.parseInt(category);
+	}
+	public Integer getIntCondition() {
+		return Integer.parseInt(condition);
 	}
 //------------------------------------------
 	public String getId() {
@@ -56,11 +52,11 @@ public class ItemForm {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCondition() {
-		return condition;
+	public String getPrice() {
+		return price;
 	}
-	public void setCondition(String condition) {
-		this.condition = condition;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	public String getCategory() {
 		return category;
@@ -68,29 +64,17 @@ public class ItemForm {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getCategoryName() {
-		return categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
 	public String getBrand() {
 		return brand;
 	}
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	public String getPrice() {
-		return price;
+	public String getCondition() {
+		return condition;
 	}
-	public void setPrice(String price) {
-		this.price = price;
-	}
-	public String getShipping() {
-		return shipping;
-	}
-	public void setShipping(String shipping) {
-		this.shipping = shipping;
+	public void setCondition(String condition) {
+		this.condition = condition;
 	}
 	public String getDescription() {
 		return description;
@@ -98,11 +82,9 @@ public class ItemForm {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 	@Override
 	public String toString() {
-		return "ItemForm [id=" + id + ", name=" + name + ", condition=" + condition + ", category=" + category
-				+ ", categoryName=" + categoryName + ", brand=" + brand + ", price=" + price + ", shipping=" + shipping
-				+ ", description=" + description + "]";
+		return "ItemForm [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + ", brand="
+				+ brand + ", condition=" + condition + ", description=" + description + "]";
 	}
 }

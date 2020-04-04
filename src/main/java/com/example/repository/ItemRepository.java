@@ -86,12 +86,18 @@ public class ItemRepository {
 
 	public void save(Item item) {
         SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+        StringBuilder sql = new StringBuilder();
         if (item.getId() == null) {
 //                String insertSql = "INSERT INTO employees (name,age,gender,development_id) VALUES (:name,:age,:gender,:developmentId)";
 //                template.update(insertSql,param);
-        }else {
-//                String updateSql = "UPDATE employees SET name=:name,age=:age,gender=:gender,development_id=:developmentId WHERE id = :id";
-//                template.update(updateSql, param);                        
+        }else {    		
+        	sql.append("UPDATE");
+        	sql.append(" items ");
+        	sql.append("SET");
+        	sql.append(" name = :name, price = :price, category = :category, brand = :brand, condition = :condition, description = :description ");
+        	sql.append("WHERE");
+        	sql.append(" id = :id");
+            template.update(sql.toString(), param);                        
         }
 	}
 }

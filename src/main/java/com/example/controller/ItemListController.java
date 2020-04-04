@@ -83,20 +83,16 @@ public class ItemListController {
 	 * @return 商品詳細画面
 	 */
 	@RequestMapping("/save-item")
-	public String saveItem(Model model,ItemForm form,RedirectAttributes redirectAttributes) {
-		System.out.println(form.toString());
-        
-		Item item = new Item();
-        BeanUtils.copyProperties(form, item);
-        item.setId(form.getIntId());
-        item.setCondition(form.getIntCondition());
-        item.setCategory(form.getIntCategory());
-        item.setPrice(form.getDoublePrice());
-        item.setShipping(form.getIntShipping());
+	public String saveItem(ItemForm form,Model model,RedirectAttributes redirectAttributes) {
+		Item item = itemService.load(form.getIntId());		
 
-		itemService.save(item);
-		
-		model.addAttribute("item",item);
+		BeanUtils.copyProperties(form, item);
+		item.setId(form.getIntId());
+        item.setPrice(form.getDoublePrice());
+        item.setCategory(form.getIntCategory());
+        item.setCondition(form.getIntCondition());
+
+		itemService.save(item);		
 		redirectAttributes.addAttribute("id", form.getIntId());
 		
 		return "redirect:/to-show-item";
