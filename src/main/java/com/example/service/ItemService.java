@@ -27,8 +27,13 @@ public class ItemService {
 	 * 
 	 * @return
 	 */
-	public List<Item> findAll() {
-		List<Item> itemList = itemRepository.findAll();
+	public List<Item> findAll(Integer page) {
+		Integer offset = 0; 
+		if (page != null) {
+			Integer limit = 30;
+			offset = limit * (page - 1);
+		}
+		List<Item> itemList = itemRepository.findAll(offset);
 		return itemList;
 	} 
 

@@ -38,8 +38,8 @@ public class ItemListController {
 	 * @return　商品一覧画面
 	 */
 	@RequestMapping("")
-	public String toItemList(Model model) {
-		List<Item> itemList = itemService.findAll();
+	public String toItemList(Model model,Integer page) {
+		List<Item> itemList = itemService.findAll(page);
 		List<Category> parentList = categorySearchService.findAllParent();
 		model.addAttribute("itemList",itemList);
 		model.addAttribute("parentList",parentList);

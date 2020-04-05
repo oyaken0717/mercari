@@ -19,7 +19,7 @@ import com.example.domain.Item;
  *
  */
 @Repository
-public class ItemRepository {
+public class ItemRepositoryオフセットが実装できたら消す {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
@@ -43,7 +43,7 @@ public class ItemRepository {
 	 * 
 	 * @return 全部のItem情報が入ったリスト
 	 */
-	public List<Item> findAll(Integer offset) {
+	public List<Item> findAll() {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT");
 		sql.append(" i.id AS i_id, i.name AS i_name, i.condition AS i_condition, i.category AS i_category,");
@@ -53,10 +53,8 @@ public class ItemRepository {
 		sql.append("FROM items i JOIN category c ");
 		sql.append("ON i.category =  c.id ");
 		sql.append("ORDER BY i.id ");
-		sql.append("LIMIT 30 ");
-		sql.append("OFFSET :OFFSET ");
-		MapSqlParameterSource param = new MapSqlParameterSource().addValue("OFFSET", offset);
-		List<Item> itemList = template.query(sql.toString(), param, ITEM_ROW_MAPPER);
+		sql.append("LIMIT 20");
+		List<Item> itemList = template.query(sql.toString(), ITEM_ROW_MAPPER);
 		return itemList;
 	}
 
