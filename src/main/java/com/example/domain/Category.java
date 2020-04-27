@@ -10,6 +10,7 @@ public class Category {
 	private String name;
 	/** 「/」区切りのカテゴリー名 */
 	private String nameAll;
+	
 	public Integer getId() {
 		return id;
 	}

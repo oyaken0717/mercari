@@ -20,50 +20,10 @@
 <!--■ body -->	
 	<body>
 <!--■ ヘッダー -->
-
  	<span th:include="fragment-part::frag_header"></span>
   
- <!--■ ヘッダー -->
 	  <div id="main" class="container-fluid">
-	    <!-- addItem link -->
-	    <div id="addItemButton">
-	      <a class="btn btn-default" th:href="@{/to-add-item}"><i class="fa fa-plus-square-o"></i> Add New Item</a>
-		  <a class="btn btn-default" th:href="@{/category/to-prent-category-list}"><i class="fa fa-plus-square-o"></i> Add New Category</a>
-	    </div>
-	
-<!--■ 検索フォーム -->
-	    <div id="forms">
-			<form th:action="@{/item_search/find-by-key-words}" method="post" class="form-inline" role="form">
-	        <div class="form-group">
-<!--■ 検索商品名 -->
-	          <input name="name" type="text" class="form-control" id="name" placeholder="item name"/>
-	        </div>
-	        <div class="form-group"><i class="fa fa-plus"></i></div>
-	        <div class="form-group">
-<!--■ 大 -->
-			  <select name="parentId" id="inputParentId" class="form-control">
-	            <option th:value=null>- parentCategory -</option>
-	            <option th:each="parent:${parentList}" th:value="${parent.id}" th:text="${parent.name}">- parentCategory -</option>
-	          </select>
-<!--■ 中 -->
-			  <select name="childId" id="inputChildId" class="form-control">
-                <option th:value=null>- childCategory -</option>
-	          </select>
-<!--■ 小 -->
-	          <select name="grandChildId" id="inputGrandChildId" class="form-control">
-	            <option th:value=null>- grandChild -</option>
-	          </select>
-	        </div>
-	        <div class="form-group"><i class="fa fa-plus"></i></div>
-	        <div class="form-group">
-<!--■ ブランド -->
-	          <input name="brand" type="text" class="form-control" placeholder="brand"/>
-	        </div>
-	        <div class="form-group"></div>
-	        <button type="submit" class="btn btn-default"><i class="fa fa-angle-double-right"></i> search</button>
-			</form>
-	    </div>
-	
+
 <!--■ pagination -->
 	    <div class="pages">
 	      <nav class="page-nav">
@@ -81,20 +41,12 @@
 	      <table id="item-table" class="table table-hover table-condensed">
 	        <thead>
 	          <tr>
-	            <th>name</th>
-	            <th>price</th>
 	            <th>category</th>
-	            <th>brand</th>
-	            <th>cond</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	          <tr th:each="item:${itemList}">
-	            <td class="item-name"><a th:href="@{'/to-show-item?id=' + ${item.id}}"><span th:text="${item.name}">Razer BlackWidow Chroma Keyboard</span></a></td>
-	            <td th:text="${item.price}" class="item-price">52.0</td>
-	            <td th:text="${item.categoryName}" class="item-category"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
-	            <td th:text="${item.brand}" class="item-brand"><a href="">Razer</a></td>
-	            <td th:text="${item.condition}" class="item-condition">3</td>
+	          <tr th:each="parentCategory:${parentCategoryList}">
+	            <td th:text="${parentCategory.name}" class="item-category"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -126,9 +78,6 @@
 	      </div>
 	    </div>
 	  </div>
-	  
-	  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	  <script th:src="@{/js/category.js}"></script>
-	  
+	  	  
 	</body>
 </html>

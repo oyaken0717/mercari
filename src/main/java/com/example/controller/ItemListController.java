@@ -43,7 +43,8 @@ public class ItemListController {
 		List<Category> parentList = categorySearchService.findAllParent();
 		model.addAttribute("itemList",itemList);
 		model.addAttribute("parentList",parentList);
-		return "list";
+		return "list";			
+
 	}
 	
 	/**

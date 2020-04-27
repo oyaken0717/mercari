@@ -32,7 +32,6 @@ public class CategorySearchRepository {
 		return category;
 	};
 
-	
 	/**
 	 * 親カテゴリーを取得する.
 	 * 
