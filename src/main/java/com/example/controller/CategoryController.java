@@ -41,7 +41,33 @@ public class CategoryController {
 		return "categoryList";			
 
 	}
-	
+
+	/**
+	 * 子カテゴリ一覧画面
+	 * 
+	 * @param model List化された子カテゴリーの情報が入る
+	 * @return　子カテゴリ一覧画面
+	 */
+	@RequestMapping("/to-child-category-list")
+	public String toChildCategoryList(Integer parentId, Model model) {
+		List<Category> childCategoryList = categorySearchService.findByParentId(parentId);
+		model.addAttribute("childCategoryList",childCategoryList);
+		return "childCategoryList";			
+	}
+
+	/**
+	 * 孫カテゴリ一覧画面
+	 * 
+	 * @param model List化された孫カテゴリーの情報が入る
+	 * @return　孫カテゴリ一覧画面
+	 */
+	@RequestMapping("/to-grand-child-category-list")
+	public String toGrandChildCategoryList(Integer parentId, Model model) {
+		List<Category> grandChildCategoryList = categorySearchService.findByChildId(parentId);
+		model.addAttribute("grandChildCategoryList",grandChildCategoryList);
+		return "grandChildCategoryList";
+	}
+
 //	/**
 //	 * 商品登録画面へ
 //	 * 
