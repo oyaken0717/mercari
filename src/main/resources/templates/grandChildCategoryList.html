@@ -23,6 +23,11 @@
  	<span th:include="fragment-part::frag_header"></span>
   
 	  <div id="main" class="container-fluid">
+		<!-- addItem link -->
+	    <div id="addItemButton">
+		  <a class="btn btn-default" th:href="@{'/category-register/to-add-category?parentId=' + ${parentId}}"> Add New Category</a>
+	    </div>
+		
 
 <!--■ pagination -->
 	    <div class="pages">
