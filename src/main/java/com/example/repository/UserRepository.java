@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.User;
 
+/**
+ * User情報を取得するレポジトリ.
+ * 
+ * @author oyamadakenji
+ *
+ */
 @Repository
 public class UserRepository {
 
@@ -25,6 +31,11 @@ public class UserRepository {
 		return user;
 	};
 	
+	/**
+	 * User情報を登録、更新する.
+	 * 
+	 * @param user 登録、更新する情報の入ったドメイン
+	 */
 	public void save(User user) {
 		StringBuilder sql = new StringBuilder();
 		if (user.getId()==null) {
