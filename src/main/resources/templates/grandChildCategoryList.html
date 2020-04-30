@@ -52,9 +52,9 @@
 	        <tbody>
 	          <tr th:each="grandChildCategory:${grandChildCategoryList}">
 				<td class="item-category">
-					<!-- <a th:href="@{'/category/to-child-category-list?parentId=' + ${grandChildCategory.id}}"> -->
+					<a th:href="@{'/category-register/to-show-category?id=' + ${grandChildCategory.id}}">
 						<span th:text="${grandChildCategory.name}">孫カテゴリーの名前</span>
-		            <!-- </a> -->
+		            </a>
 				</td>
 	          </tr>
 	        </tbody>

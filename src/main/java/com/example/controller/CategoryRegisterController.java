@@ -55,62 +55,53 @@ public class CategoryRegisterController {
 		redirectAttributes.addAttribute("parentId", category.getParent());
 		return "redirect:/category/to-grand-child-category-list";
 	}
-//	
-//	/**
-//	 * 商品詳細画面
-//	 * 
-//	 * @param model idで指定された商品の情報が入る
-//	 * @param id 商品一覧画面で取得した商品のid
-//	 * @return 商品詳細画面
-//	 */
-//	@RequestMapping("/to-show-item")
-//	public String toShowItem(Model model, Integer id) {
-//		Item item = itemService.load(id);
-//		model.addAttribute("item",item);
-//		return "detail";
-//	}
-//
-//	/**
-//	 * 商品編集画面へ
-//	 * @param model idで指定された商品の情報が入る
-//	 * @param id 商品一覧画面で取得した商品のid
-//	 * @return 商品編集画面
-//	 */
-//	@RequestMapping("/to-edit-item")
-//	public String toEditItem(Model model,Integer id) {
-//		Item item = itemService.load(id);
-//		List<Category> parentList = categorySearchService.findAllParent();
-//		model.addAttribute("item",item);
-//		model.addAttribute("parentList",parentList);
-//		return "edit";
-//	}
-//	
-//	/**
-//	 * 商品情報を登録、更新する.
-//	 * 
-//	 * @param model 登録、更新するための新しい商品情報が入る
-//	 * @param form 登録、更新するための新しい商品情報が入る
-//	 * @return 商品詳細画面
-//	 */
-//	@RequestMapping("/save-item")
-//	public String saveItem(ItemForm form,Model model,RedirectAttributes redirectAttributes) {
-//		Item item = new Item();
-//		if (form.getIntId()!=null) {
-//			item = itemService.load(form.getIntId());					
-//		}
-//		
-//		BeanUtils.copyProperties(form, item);
-//		item.setId(form.getIntId());
-//        item.setPrice(form.getDoublePrice());
-//        item.setCategory(form.getIntCategory());
-//        item.setCondition(form.getIntCondition());
-//
-//		itemService.save(item);
-//		
-//		if (form.getIntId()!=null) {
-//			redirectAttributes.addAttribute("id", form.getIntId());
-//			return "redirect:/to-show-item";
-//		}
-//		return "redirect:/";
-//	}
+	
+	/**
+	 * カテゴリー詳細画面へ
+	 * 
+	 * @param model idで指定された商品の情報が入る
+	 * @param id 商品一覧画面で取得した商品のid
+	 * @return 商品詳細画面
+	 */
+	@RequestMapping("/to-show-category")
+	public String toShowCategory(Integer id, Model model) {
+		Category category = categoryService.load(id);
+		model.addAttribute("category", category);
+		return "detailCategory";
+	}
+
+	/**
+	 * カテゴリー編集画面へ
+	 * @return カテゴリー編集画面
+	 */
+	@RequestMapping("/to-edit-category")
+	public String toEditCategory(Integer id, Model model) {
+		model.addAttribute("categoryId", id);
+		return "editCategory";
+	}
+
+	/**
+	 * カテゴリーの更新.
+	 * 
+	 * @param form 更新したい情報が入ったform
+	 * @param redirectAttributes 詳細画面に遷移するためのid
+	 * @return カテゴリー詳細画面
+	 */
+	@RequestMapping("/edit")
+	public String edit(CategoryForm form, RedirectAttributes redirectAttributes){
+		Category category = new Category();
+		BeanUtils.copyProperties(form, category);
+		category.setId(form.getIntId());
+		//■update
+		categoryService.insert(category);
+		redirectAttributes.addAttribute("id", category.getId());
+		return "redirect:/category-register/to-show-category";
+	}
+	
+	@RequestMapping("/delete-category")
+	public String deleteCategory(Integer id) {
+		categoryService.delete(id);
+		return "redirect:/";
+	}
+	
 }

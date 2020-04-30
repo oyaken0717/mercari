@@ -21,11 +21,30 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 	
 	/**
-	 * 孫カテゴリーを登録する.
+	 * 孫カテゴリーを登録、更新する.
 	 * 
 	 */
 	public void insert(Category category) {
 		categoryRepository.insert(category);
 	}
+	
+	/**
+	 * カテゴリーの詳細情報を取得する.
+	 * 
+	 * @param id カテゴリーのid
+	 * @return カテゴリーの詳細情報
+	 */
+	public Category load(Integer id) {
+		Category category = categoryRepository.load(id);
+		return category;
+	}
 
+	/**
+	 * カテゴリー情報を削除する.
+	 * 
+	 * @param id カテゴリーのid
+	 */
+	public void delete(Integer id) {
+		categoryRepository.delete(id);
+	}
 }
