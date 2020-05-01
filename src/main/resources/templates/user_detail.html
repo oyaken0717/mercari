@@ -34,12 +34,13 @@
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="list.html" th:href="@{/employee/showList}">ユーザー管理</a></li>
+						<li class="active"><a href="list.html" th:href="@{/employee/showList}">従業員管理</a></li>
 					</ul>
 					<p class="navbar-text navbar-right">
-						<span th:text="${session.administratorName}">山田太郎</span>さんこんにちは！
+					   <span th:text="${session.administratorName}">山田太郎</span>さんこんにちは！
 						&nbsp;&nbsp;&nbsp;
 						<a href="../administrator/login.html" class="navbar-link" th:href="@{/logout}">ログアウト</a>
 					</p>
@@ -48,50 +49,67 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
-		
+
 		<!-- パンくずリスト -->
 		<ol class="breadcrumb">
-			<li class="active"><a href="list.html" th:href="@{/employee/showList}">従業員リスト</a></li>
+			<li><a th:href="@{/employee/showList}">従業員リスト</a></li>
+			<li class="active">従業員詳細</li>
 		</ol>
-
-		<!-- table -->
+		
+		<!-- register form -->
 		<div class="row">
 			<div
-				class="table-responsive col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
-
+				class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+				<!-- 背景をグレーに、埋め込んだようなコンポーネント -->
+				<div class="well">
+				
+				
 <!-- ここから上を編集する必要はありません -->
 
-<!-- ここにモックのtable要素を貼り付けます -->
-				<form th:action="@{/employee/searchList}" method="post">
-					<input type="text" name="name">
-					<button type="submit">検索</button>
-					<span th:if="${message}" th:text="${message}"></span>
-				</form>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>ユーザー名</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="user : ${userList}">
-							<td>
-								<a th:href="@{'/user-list/to-user-detail?id=' + ${user.id}}">
-									<span th:text="${user.name}">山田太郎</span>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+<!-- ここにモックのform要素を貼り付けます -->
 
-
+					<form method="post" action="list.html" th:action="@{/employee/update}" th:object="${updateEmployeeForm}">
+						<fieldset>
+							<legend>ユーザー情報</legend>
+							<table class="table table-striped">
+							  <tr>
+							    <th nowrap>
+							      ID
+							    </th>
+							    <td>
+							     <span th:text="${user.id}">1</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      名前
+							    </th>
+							    <td>
+								   <span th:text="${user.name}">山田花子</span>さん
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      管理者権限
+							    </th>
+							    <td>
+							      <span th:if="${user.admin}" th:text="あり">true</span>
+							      <span th:unless="${user.admin}" th:text="なし">true</span>
+							    </td>
+							  </tr>
+							</table>
+							<a th:href="@{'/user-register/to-edit-user?id=' + ${user.id}}" class="btn btn-primary">編集</a>
+							<a th:href="@{'/user-register/delete?id=' + ${user.id}}" class="btn btn-primary">削除</a>
+						</fieldset>
+					</form>
+					
+					
 <!-- ここから下を編集する必要はありません -->
-
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end container -->
-	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="../../static/js/bootstrap.min.js"></script>

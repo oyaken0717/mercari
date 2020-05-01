@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,4 +38,29 @@ public class UserService {
 		}
 		userRepository.save(user);
 	}
+	
+	/**
+	 * 登録されている全てのUser情報を取得する.
+	 * 
+	 * @return  登録されている全てのUser情報
+	 */
+	public List<User> findAll() {
+		List<User> userList = userRepository.findAll();
+		return userList;
+	}
+	
+	/**
+	 * idからユーザー情報を取得する.
+	 * 
+	 * @param id 一覧から選択されたid
+	 * @return idから特定されたUser情報
+	 */
+	public User findById(Integer id) {
+		User user = userRepository.findById(id);
+		return user;
+	}
+	
+	public void delete(Integer id) {
+		userRepository.delete(id);
+	}	
 }

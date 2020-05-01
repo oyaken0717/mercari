@@ -3,6 +3,7 @@ package com.example.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.User;
@@ -27,6 +28,20 @@ public class UserRegisterController {
 	}
 	
 	/**
+	 * 編集画面へ.
+	 * 
+	 * @param id id
+	 * @param model 詳細画面からのuserのid
+	 * @return 編集画面 
+	 */
+	@RequestMapping("/to-edit-user")
+	public String toEditUser(Integer id, Model model) {
+		model.addAttribute("user_id", id);
+		return "edit_user";
+	}
+	
+	
+	/**
 	 * ユーザー情報の登録、更新をする.
 	 * 
 	 * @param user 登録、更新をするドメイン
@@ -36,7 +51,20 @@ public class UserRegisterController {
 	public String save(UserForm form) {
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
+		if (form.getId()!=null) {
+			user.setId(form.getIntId());			
+		}
 		userService.save(user);
-		return "redirect:/login-user/to-login";
+		if (form.getId()!=null) {
+			return "redirect:/user-list/show-user-list";
+		}
+		return "redirect:/login-user/to-login";			
 	}
+	
+	@RequestMapping("/delete")
+	public String delete(Integer id) {
+		userService.delete(id);
+		return "redirect:/user-list/show-user-list";
+	}
+
 }

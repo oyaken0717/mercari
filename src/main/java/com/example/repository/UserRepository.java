@@ -49,9 +49,24 @@ public class UserRepository {
 			sql.append("VALUES ");
 			sql.append(" (:name, :email, :password) ");
 			template.update(sql.toString(), param);			
+		}else {
+			SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+			sql.append("UPDATE ");
+			sql.append(" users ");
+			sql.append("SET ");
+			sql.append(" name = :name ");
+			sql.append("WHERE ");
+			sql.append(" id = :id ");
+			template.update(sql.toString(), param);
 		}
 	}
 	
+	/**
+	 * emailからUser情報を取得する.
+	 * 
+	 * @param email ログイン画面で入力されたemail
+	 * @return null又はemailから特定されたUser
+	 */
 	public User findByEmail(String email) {		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ");
@@ -67,5 +82,59 @@ public class UserRepository {
 		}
 		return userList.get(0);
 	}
-
+	
+	/**
+	 * 登録されている全てのUser情報を取得する.
+	 * 
+	 * @return  登録されている全てのUser情報
+	 * 
+	 */
+	public List<User> findAll() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ");
+		sql.append(" id, name, email, password, admin ");
+		sql.append("FROM ");
+		sql.append(" users ");
+		List<User> userList = template.query(sql.toString(), USER_ROW_MAPPER);
+		if (userList.size() == 0) {
+			return null;
+		}
+		return userList;
+	}
+	
+	/**
+	 * idからユーザー情報を取得する.
+	 * 
+	 * @param id 一覧から選択されたid
+	 * @return idから特定されたUser情報
+	 */
+	public User findById(Integer id) {		
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ");
+		sql.append(" id, name, email, password, admin ");
+		sql.append("FROM ");
+		sql.append(" users ");
+		sql.append("WHERE ");
+		sql.append(" id = :id ");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		User user = template.queryForObject(sql.toString(), param, USER_ROW_MAPPER);
+		return user;
+	}
+	
+	/**
+	 * User情報を削除する.
+	 * 
+	 * @param id id
+	 */
+	public void delete(Integer id) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE ");
+		sql.append("FROM ");
+		sql.append(" users ");
+		sql.append("WHERE ");
+		sql.append(" id = :id ");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		template.update(sql.toString(), param);					
+	}
+	
 }
