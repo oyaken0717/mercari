@@ -1,8 +1,11 @@
 package com.example.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -48,4 +51,21 @@ public class UserRepository {
 			template.update(sql.toString(), param);			
 		}
 	}
+	
+	public User findByEmail(String email) {		
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ");
+		sql.append(" id, name, email, password, admin ");
+		sql.append("FROM ");
+		sql.append(" users ");
+		sql.append("WHERE ");
+		sql.append(" email = :email ");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+		List<User> userList = template.query(sql.toString(), param, USER_ROW_MAPPER);
+		if (userList.size() == 0) {
+			return null;
+		}
+		return userList.get(0);
+	}
+
 }

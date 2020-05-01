@@ -37,6 +37,6 @@ public class UserRegisterController {
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
 		userService.save(user);
-		return "redirect:/";
+		return "redirect:/login-user/to-login";
 	}
 }
