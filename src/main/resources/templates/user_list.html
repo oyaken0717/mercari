@@ -40,6 +40,7 @@
 					</ul>
 					<p class="navbar-text navbar-right">
 						<span th:text="${session.administratorName}">山田太郎</span>さんこんにちは！
+						<span sec:authorize="hasRole('ROLE_ADMIN')" th:text="管理者権限あります"><a href="/logout"></a></span>
 						&nbsp;&nbsp;&nbsp;
 						<a href="../administrator/login.html" class="navbar-link" th:href="@{/logout}">ログアウト</a>
 					</p>

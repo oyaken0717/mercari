@@ -61,6 +61,12 @@ public class UserRegisterController {
 		return "redirect:/login-user/to-login";			
 	}
 	
+	/**
+	 * User情報を削除する.
+	 * 
+	 * @param id id
+	 * @return ユーザー一覧画面
+	 */
 	@RequestMapping("/delete")
 	public String delete(Integer id) {
 		userService.delete(id);

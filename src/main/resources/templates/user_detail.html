@@ -98,8 +98,10 @@
 							    </td>
 							  </tr>
 							</table>
-							<a th:href="@{'/user-register/to-edit-user?id=' + ${user.id}}" class="btn btn-primary">編集</a>
-							<a th:href="@{'/user-register/delete?id=' + ${user.id}}" class="btn btn-primary">削除</a>
+							<span sec:authorize="hasRole('ROLE_ADMIN')">
+								<a th:href="@{'/user-register/to-edit-user?id=' + ${user.id}}" class="btn btn-primary">編集</a>
+								<a th:href="@{'/user-register/delete?id=' + ${user.id}}" class="btn btn-primary">削除</a>
+							</span>
 						</fieldset>
 					</form>
 					

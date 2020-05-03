@@ -2,12 +2,16 @@ package com.example.repository;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.Item;
@@ -23,6 +27,18 @@ public class ItemRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
+    // ■自動生成されたIDを取得できるようになる。
+    private SimpleJdbcInsert insert;
+	
+    @PostConstruct
+    public void init() {
+    	// ■JdbcTemplateで挿入をしている。(@Autowired > メソッド内で呼ばれる。 > SQLの発行)
+        insert = new SimpleJdbcInsert((JdbcTemplate) template.getJdbcTemplate()); 
+        // ■①テーブル名を設定する。 > ②自動採番されるカラム名を設定する。
+        insert = insert.withTableName("items").usingGeneratedKeyColumns("id");
+    }
+
 
 	public static final RowMapper<Item> ITEM_ROW_MAPPER = (rs, i) -> {
 		Item item = new Item();
@@ -52,19 +68,13 @@ public class ItemRepository {
 		sql.append(" c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all ");
 		sql.append("FROM items i JOIN category c ");
 		sql.append("ON i.category =  c.id ");
-		sql.append("ORDER BY i.id ");
+		sql.append("ORDER BY i.id DESC ");
 		sql.append("LIMIT 30 ");
 		sql.append("OFFSET :OFFSET ");
 		MapSqlParameterSource param = new MapSqlParameterSource().addValue("OFFSET", offset);
 		List<Item> itemList = template.query(sql.toString(), param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
-
-//	public List<Item> findAll() {
-//		String sql = "SELECT i.id AS i_id, i.name AS i_name, i.condition AS i_condition, i.category AS i_category, i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description, c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all FROM items i JOIN category c ON i.category =  c.id ORDER BY i.id LIMIT 20";
-//		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
-//		return itemList;
-//	}
 
 	/**
 	 * idで指定された商品情報を取得する.
@@ -86,17 +96,13 @@ public class ItemRepository {
 		return item;
 	}
 
-	public void save(Item item) {
+	public Item save(Item item) {
         SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-        StringBuilder sql = new StringBuilder();
         if (item.getId() == null) {
-        	sql.append("INSERT INTO ");
-        	sql.append(" items ");
-        	sql.append(" (name,price,category,brand,condition,description) ");
-        	sql.append("VALUES ");
-        	sql.append(" (:name, :price, :category, :brand, :condition, :description)");
-        	template.update(sql.toString(),param);
+            Number key = insert.executeAndReturnKey(param);
+            item.setId(key.intValue());        	
         }else {    		
+        	StringBuilder sql = new StringBuilder();
         	sql.append("UPDATE");
         	sql.append(" items ");
         	sql.append("SET");
@@ -105,5 +111,6 @@ public class ItemRepository {
         	sql.append(" id = :id");
             template.update(sql.toString(), param);                        
         }
+        return item;
 	}
 }

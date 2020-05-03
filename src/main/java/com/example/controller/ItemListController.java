@@ -13,6 +13,7 @@ import com.example.domain.Category;
 import com.example.domain.Item;
 import com.example.form.ItemForm;
 import com.example.service.CategorySearchService;
+import com.example.service.CsvOutputService;
 import com.example.service.ItemService;
 
 /**
@@ -31,6 +32,9 @@ public class ItemListController {
 	@Autowired
 	private CategorySearchService categorySearchService;
 	
+	@Autowired
+	private CsvOutputService csvOutputService;
+
 	/**
 	 * 商品一覧画面
 	 * 
@@ -109,8 +113,11 @@ public class ItemListController {
         item.setCategory(form.getIntCategory());
         item.setCondition(form.getIntCondition());
 
-		itemService.save(item);
+        item = itemService.save(item);
 		
+        //■ ログ(csv)をダウンロードする。
+        csvOutputService.outputItem(item);
+        
 		if (form.getIntId()!=null) {
 			redirectAttributes.addAttribute("id", form.getIntId());
 			return "redirect:/to-show-item";

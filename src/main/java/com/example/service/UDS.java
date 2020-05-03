@@ -27,9 +27,9 @@ public class UDS implements UserDetailsService {
 
 		Collection<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER")); // ユーザ権限付与
-//		if(user.isAdmin()) {
-//			authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN")); // 管理者権限付与
-//		}
+		if(user.getAdmin()) {
+			authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN")); // 管理者権限付与
+		}
 		return new LoginUser(user,authorityList);
 	}
 }

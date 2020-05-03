@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.domain.Category;
 import com.example.form.CategoryForm;
 import com.example.service.CategoryService;
+import com.example.service.CsvOutputService;
 
 /**
  * カテゴリー情報を管理するコントローラー.
@@ -23,6 +24,9 @@ public class CategoryRegisterController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private CsvOutputService csvOutputService;
 	
 	/**
 	 * カテゴリー登録画面へ
@@ -51,7 +55,9 @@ public class CategoryRegisterController {
 		category.setName(form.getName());
 		category.setNameAll("あとで登録する。");
 		//■insert
-		categoryService.insert(category);
+		category = categoryService.insert(category);
+		//■csvで出力
+		csvOutputService.outputCategory(category);
 		redirectAttributes.addAttribute("parentId", category.getParent());
 		return "redirect:/category/to-grand-child-category-list";
 	}
@@ -94,6 +100,8 @@ public class CategoryRegisterController {
 		category.setId(form.getIntId());
 		//■update
 		categoryService.insert(category);
+		//■csvで出力
+		csvOutputService.outputCategory(category);
 		redirectAttributes.addAttribute("id", category.getId());
 		return "redirect:/category-register/to-show-category";
 	}

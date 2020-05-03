@@ -48,7 +48,8 @@ public class ItemService {
 		return item;
 	}
 	
-	public void save(Item item) {
-		itemRepository.save(item);
+	public Item save(Item item) {
+		item = itemRepository.save(item);
+		return item;
 	} 
 }

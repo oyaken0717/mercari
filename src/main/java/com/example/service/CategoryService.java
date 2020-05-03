@@ -22,10 +22,12 @@ public class CategoryService {
 	
 	/**
 	 * 孫カテゴリーを登録、更新する.
+	 * @return 
 	 * 
 	 */
-	public void insert(Category category) {
-		categoryRepository.insert(category);
+	public Category insert(Category category) {
+		category = categoryRepository.insert(category);
+		return category;
 	}
 	
 	/**
