@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/css/**", 
 			"/img/**", 
 			"/js/**",
+			"/img_noodle/**",
 			"/category_search/check_parent",
 			"/category_search/check_child"
 		);

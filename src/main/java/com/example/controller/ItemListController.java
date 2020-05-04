@@ -1,5 +1,10 @@
 package com.example.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -11,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.Category;
 import com.example.domain.Item;
+import com.example.domain.Sale;
 import com.example.form.ItemForm;
 import com.example.service.CategorySearchService;
 import com.example.service.CsvOutputService;
@@ -40,15 +46,34 @@ public class ItemListController {
 	 * 
 	 * @param model List化された全商品の情報が入る
 	 * @return　商品一覧画面
+	 * @throws ParseException 
 	 */
 	@RequestMapping("")
-	public String toItemList(Model model,Integer page) {
+	public String toItemList(Model model,Integer page) throws ParseException {
 		List<Item> itemList = itemService.findAll(page);
+		//■ itemに入っているsaleを取り出す。
+		for (Item item : itemList) {
+			if (item.getSaleList().get(0).getTerm() != null) {
+				Sale sale = item.getSaleList().get(0);
+				Date term = sale.getTerm();
+				
+                LocalDate localDate = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String format = localDate.format(formatter);             
+                SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date now = sdFormat.parse(format);
+				
+				//■ saleのtermが現在よりも長ければ、saleの価格をitemの価格に入れ直す。		
+				if (term.after(now)) {
+					item.setPrice(sale.getPrice());
+					item.setSet(true);
+				}				
+			}
+		}
 		List<Category> parentList = categorySearchService.findAllParent();
 		model.addAttribute("itemList",itemList);
 		model.addAttribute("parentList",parentList);
-		return "list";			
-
+		return "list";
 	}
 	
 	/**

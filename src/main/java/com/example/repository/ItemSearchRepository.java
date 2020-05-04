@@ -27,6 +27,7 @@ public class ItemSearchRepository {
 		item.setPrice(rs.getDouble("price"));
 		item.setShipping(rs.getInt("shipping"));
 		item.setDescription(rs.getString("description"));
+		item.setImage(rs.getString("image"));
 		return item;
 	};
 

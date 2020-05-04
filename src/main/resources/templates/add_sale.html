@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- css -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" 
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="./mercari.css"/>
+  <!-- script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <title>Rakus Items</title>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-inverse">
+    <a class="navbar-brand" href="./list.html">Rakus Items</a>
+  </nav>
+
+  <!-- register form -->
+  <div id="login" class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">add Sale</div>
+      <div class="panel-body">
+<!--■ form  -->
+        <form th:action="@{/sale-set/save}" method="POST">
+          <input type="hidden" name="itemId" th:value="${itemId}">
+          <div class="form-group">
+            <label>price</label>
+            <input type="text" name="price" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="password">year</label>
+            <select name="year" class="form-control" id="password">
+            	<option>2020
+            	<option>2021
+            </select>
+            <label for="password">month</label>
+            <select name="month" class="form-control" id="password">
+            	<option>01
+            	<option>02
+            	<option>03
+            	<option>04
+            	<option>05
+            	<option>06
+            	<option>07
+            	<option>08
+            	<option>09
+            	<option>10
+            	<option>11
+            	<option>12
+            </select>
+            <label for="password">day</label>
+            <select name="day" class="form-control" id="password">
+            	<option>01
+            	<option>02
+            	<option>03
+            	<option>04
+            	<option>05
+            	<option>06
+            	<option>07
+            	<option>08
+            	<option>09
+            	<option>10
+            	<option>11
+            	<option>12
+            	<option>13
+            	<option>14
+            	<option>15
+            	<option>16
+            	<option>17
+            	<option>18
+            	<option>19
+            	<option>20
+            	<option>21
+            	<option>22
+            	<option>23
+            	<option>24
+            	<option>25
+            	<option>26
+            	<option>27
+            	<option>28
+            	<option>29
+            	<option>30
+            	<option>31
+            </select>
+            
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div>
+</body>
+</html>

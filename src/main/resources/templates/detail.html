@@ -77,6 +77,10 @@
 	            <th>description</th>
 	            <td th:text="${item.description}">I realized his pants are on backwards after the picture.</td>
 	          </tr>
+	          <tr>
+	            <th>image</th>
+	            <td><img th:src="@{'/img_noodle/' + ${item.image}}" width="200" height="400"></td>
+	          </tr>
 	        </tbody>
 	      </table>
 	      <a type="button" class="btn btn-default" th:href="@{'/to-edit-item?id=' + ${item.id}}"><i class="fa fa-pencil-square-o"></i>&nbsp;edit</a>

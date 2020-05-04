@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.Item;
+import com.example.domain.Sale;
 
 /**
  * Itemsテーブルの情報を取得するレポジトリ.
@@ -51,6 +53,30 @@ public class ItemRepository {
 		item.setPrice(rs.getDouble("i_price"));
 		item.setShipping(rs.getInt("i_shipping"));
 		item.setDescription(rs.getString("i_description"));
+		//■ saleの情報を入れる。
+		Sale sale = new Sale();
+		sale.setId(rs.getInt("s_id"));
+		sale.setItemId(rs.getInt("s_item_id"));
+		sale.setPrice(rs.getDouble("s_price"));
+		sale.setTerm(rs.getDate("s_term"));
+		List<Sale> saleList = new ArrayList<>();
+		item.setSaleList(saleList);
+		saleList.add(sale);
+		return item;
+	};
+
+	public static final RowMapper<Item> ITEM_ROW_MAPPER2 = (rs, i) -> {
+		Item item = new Item();
+		item.setId(rs.getInt("i_id"));
+		item.setName(rs.getString("i_name"));
+		item.setCondition(rs.getInt("i_condition"));
+		item.setCategory(rs.getInt("i_category"));
+		item.setCategoryName(rs.getString("c_name_all"));
+		item.setBrand(rs.getString("i_brand"));
+		item.setPrice(rs.getDouble("i_price"));
+		item.setShipping(rs.getInt("i_shipping"));
+		item.setDescription(rs.getString("i_description"));
+		item.setImage(rs.getString("i_image"));
 		return item;
 	};
 
@@ -63,11 +89,13 @@ public class ItemRepository {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT");
 		sql.append(" i.id AS i_id, i.name AS i_name, i.condition AS i_condition, i.category AS i_category,");
-		sql.append(
-				" i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description,");
-		sql.append(" c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all ");
+		sql.append(" i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description,");
+		sql.append(" c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all, ");
+		sql.append(" s.id AS s_id, s.item_id AS s_item_id, s.price AS s_price, s.term AS s_term ");
 		sql.append("FROM items i JOIN category c ");
 		sql.append("ON i.category =  c.id ");
+		sql.append("LEFT OUTER JOIN sales s ");
+		sql.append("ON i.id = s.item_id ");		
 		sql.append("ORDER BY i.id DESC ");
 		sql.append("LIMIT 30 ");
 		sql.append("OFFSET :OFFSET ");
@@ -85,14 +113,14 @@ public class ItemRepository {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT");
 		sql.append(" i.id AS i_id, i.name AS i_name, i.condition AS i_condition, i.category AS i_category,");
-		sql.append(
-				" i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description,");
+		sql.append(" i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description,");
+		sql.append(" i.image AS i_image, ");
 		sql.append(" c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all ");
 		sql.append("FROM items i JOIN category c ");
 		sql.append("ON i.category =  c.id ");
 		sql.append("WHERE i.id = :id");
 		MapSqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		Item item = template.queryForObject(sql.toString(), param, ITEM_ROW_MAPPER);
+		Item item = template.queryForObject(sql.toString(), param, ITEM_ROW_MAPPER2);
 		return item;
 	}
 

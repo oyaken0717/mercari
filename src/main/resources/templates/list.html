@@ -82,19 +82,27 @@
 	        <thead>
 	          <tr>
 	            <th>name</th>
+	            <th>campaign</th>	            
 	            <th>price</th>
 	            <th>category</th>
 	            <th>brand</th>
-	            <th>cond</th>
+	            <th>condition</th>
+	            <th>campaign</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr th:each="item:${itemList}">
 	            <td class="item-name"><a th:href="@{'/to-show-item?id=' + ${item.id}}"><span th:text="${item.name}">Razer BlackWidow Chroma Keyboard</span></a></td>
-	            <td th:text="${item.price}" class="item-price">52.0</td>
+	            <td>
+	            	<span th:if="${item.set}" th:text="SALE" style="color:red"></span>
+	            </td>
+	            
+	            
+	            <td th:text="${item.price}">52.0</td>
 	            <td th:text="${item.categoryName}" class="item-category"><a href="">Electronics</a> / <a href="">Computers &amp; Tablets</a> / <a href="">Components &amp; Parts</a></td>
 	            <td th:text="${item.brand}" class="item-brand"><a href="">Razer</a></td>
 	            <td th:text="${item.condition}" class="item-condition">3</td>
+	            <td class="item-name"><a th:href="@{'/sale-set/to-sale?id=' + ${item.id}}">値下げ</a></td>
 	          </tr>
 	        </tbody>
 	      </table>
