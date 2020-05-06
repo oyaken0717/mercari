@@ -104,6 +104,27 @@ public class ItemRepository {
 		return itemList;
 	}
 
+//	/**
+//	 * 商品情報を一括で取得する.
+//	 * 
+//	 * @return Item情報一括
+//	 */
+//	public List<Item> findAllDownload() {
+//		StringBuilder sql = new StringBuilder();
+//		sql.append("SELECT");
+//		sql.append(" i.id AS i_id, i.name AS i_name, i.condition AS i_condition, i.category AS i_category,");
+//		sql.append(" i.brand AS i_brand, i.price AS i_price, i.shipping AS i_shipping, i.description AS i_description,");
+//		sql.append(" c.id AS c_id, c.parent AS c_parent, c.name AS c_name, c.name_all AS c_name_all, ");
+//		sql.append(" s.id AS s_id, s.item_id AS s_item_id, s.price AS s_price, s.term AS s_term ");
+//		sql.append("FROM items i JOIN category c ");
+//		sql.append("ON i.category =  c.id ");
+//		sql.append("LEFT OUTER JOIN sales s ");
+//		sql.append("ON i.id = s.item_id ");		
+//		sql.append("ORDER BY i.id DESC ");
+//		List<Item> itemList = template.query(sql.toString(), ITEM_ROW_MAPPER);
+//		return itemList;
+//	}
+
 	/**
 	 * idで指定された商品情報を取得する.
 	 * 
