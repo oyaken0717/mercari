@@ -17,7 +17,7 @@ import com.example.service.ItemService;
 @Controller
 @RequestMapping("/csv-download")
 public class CsvDownloadController {
-
+//
 	@Autowired
 	private ItemService itemService;
 
@@ -31,6 +31,10 @@ public class CsvDownloadController {
 		Integer page = 1;
 		List<Item> itemList = new ArrayList<>();
 	    do {
+//■タイミング①
+	    	System.out.println("ーーーーーーーーー");
+	    	System.out.println("SQL発行");
+	    	System.out.println(page);
 	    	itemList = itemService.findAll(page);
 			try {
 				String path = "/Users/oyamadakenji/projects/ラクス/1.172.16.0.2/3.商品データ管理システム研修/80.追加課題/csv/item_all.csv";
@@ -57,6 +61,7 @@ public class CsvDownloadController {
 				ex.printStackTrace();
 			}
 			page++;
+//■タイミング②	    	
 		} while(itemList.size()!=0);
 		
 	}

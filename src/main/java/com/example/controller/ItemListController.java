@@ -50,7 +50,15 @@ public class ItemListController {
 	 */
 	@RequestMapping("")
 	public String toItemList(Model model,Integer page) throws ParseException {
+//■最後のページの中身を出す。
+		page=49416;
 		List<Item> itemList = itemService.findAll(page);
+		
+		System.out.println("ーーーーーーーーーーーーーーーーーーーーーー");
+		System.out.println("itemList");
+		System.out.println(itemList.toString());
+		System.out.println(itemList.size());
+		
 		//■ itemに入っているsaleを取り出す。
 		for (Item item : itemList) {
 			if (item.getSaleList().get(0).getTerm() != null) {
