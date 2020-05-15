@@ -50,8 +50,6 @@ public class ItemListController {
 	 */
 	@RequestMapping("")
 	public String toItemList(Model model,Integer page) throws ParseException {
-//■最後のページの中身を出す。
-		page=49416;
 		List<Item> itemList = itemService.findAll(page);
 		
 		System.out.println("ーーーーーーーーーーーーーーーーーーーーーー");
