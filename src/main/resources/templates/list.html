@@ -69,13 +69,33 @@
 	    <div class="pages">
 	      <nav class="page-nav">
 	        <ul class="pager">
-	          <li class="previous"><a href="#">&larr; prev</a></li>
+
+	          <li class="previous"><a th:object="${page}" th:href="@{/(nowPage=*{nowPage},prevPage=-1)}">&larr; prev</a></li>
+	          <li class="next"><a th:object="${page}" th:href="@{/(nowPage=*{nowPage},nextPage=1)}">next &rarr;</a></li>
 	          
-	          <li class="next"><a href="#">next &rarr;</a></li>
 	        </ul>
 	      </nav>
 	    </div>
-	
+
+<!--■ ページ番号を指定して表示するフォーム -->
+	      <div id="select-page">
+	        <form class="form-inline" th:object="${page}">
+	          <div class="form-group">
+	            <div class="input-group col-xs-6">
+	              <label></label>
+	              <input th:field="*{nowPage}" name="nowPage" type="text" class="form-control"/>
+	              <!-- 総ページ数 -->
+	              <div class="input-group-addon">/ ページ</div>
+	            </div>
+	            <div class="input-group col-xs-1">
+	              <button type="submit" class="btn btn-default">Go</button>
+	            </div>
+	          </div>
+	        </form>
+	      </div>
+
+
+
 <!--■テーブル  -->
 	    <!-- table -->
 	    <div class="table-responsive">
@@ -113,8 +133,9 @@
 	    <div class="pages">
 	      <nav class="page-nav">
 	        <ul class="pager">
-	          <li class="previous"><a href="#">&larr; prev</a></li>
-	          <li class="next"><a href="#">next &rarr;</a></li>
+<!--■① -->
+	          <li class="previous"><a th:href="@{/(nowPage={nowPage},prevPage=-1)}">&larr; prev</a></li>
+	          <li class="next"><a th:href="@{/(nowPage=${nowPage},nextPage=1)}">next &rarr;</a></li>
 	        </ul>
 	      </nav>
 	      <!-- ページ番号を指定して表示するフォーム -->
@@ -123,9 +144,9 @@
 	          <div class="form-group">
 	            <div class="input-group col-xs-6">
 	              <label></label>
-	              <input name="page" type="text" class="form-control"/>
+	              <input th:field="*{nowPage}" name="nowPage" type="text" class="form-control"/>
 	              <!-- 総ページ数 -->
-	              <div class="input-group-addon">/ 20</div>
+	              <div class="input-group-addon">/ -</div>
 	            </div>
 	            <div class="input-group col-xs-1">
 	              <button type="submit" class="btn btn-default">Go</button>

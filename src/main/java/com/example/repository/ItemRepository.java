@@ -96,7 +96,7 @@ public class ItemRepository {
 		sql.append("ON i.category =  c.id ");
 		sql.append("LEFT OUTER JOIN sales s ");
 		sql.append("ON i.id = s.item_id ");		
-		sql.append("ORDER BY i.id DESC ");
+		sql.append("ORDER BY i.id ");
 		sql.append("LIMIT 30 ");
 		sql.append("OFFSET :OFFSET ");
 		MapSqlParameterSource param = new MapSqlParameterSource().addValue("OFFSET", offset);
